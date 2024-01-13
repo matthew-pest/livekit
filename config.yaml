@@ -1,0 +1,25 @@
+port: 7880
+log_level: info
+rtc:
+  tcp_port: 7881
+  port_range_start: 50000
+  port_range_end: 60000
+  # use_external_ip should be set to true for most cloud environments where
+  # the host has a public IP address, but is not exposed to the process.
+  # LiveKit will attempt to use STUN to discover the true IP, and advertise
+  # that IP with its clients
+  use_external_ip: true
+redis:
+  # redis is recommended for production deploys
+  address: red-cmh3mben7f5s739oimeg:6379
+keys:
+  # key value pairs
+  API7QHuLjtwFuyu: 5BtDYEUfDI7ifItSXevVeFZX47keeSHfvfzHzJiT6DKS
+# when enabled, LiveKit will expose prometheus metrics on :6789/metrics
+prometheus_port: 6789
+turn:
+  enabled: true
+  # domain must match tls certificate
+  domain: streaming-turn.thebloxoffice.io
+  # defaults to 3478. If not using a load balancer, must be set to 443.
+  tls_port: 3478

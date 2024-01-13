@@ -36,9 +36,14 @@ COPY version/ version/
 
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=$TARGETARCH GO111MODULE=on go build -a -o livekit-server ./cmd/server
 
+# Use the lightweight Alpine image for the final stage
 FROM alpine
 
+# Copy the built binary from the builder stage
 COPY --from=builder /workspace/livekit-server /livekit-server
 
-# Run the binary.
-ENTRYPOINT ["/livekit-server"]
+# Copy your configuration file into the Docker image
+COPY config.yaml /app/config.yaml
+
+# Set the entry point and pass the config file
+ENTRYPOINT ["/livekit-server", "--config", "/app/config.yaml"]
